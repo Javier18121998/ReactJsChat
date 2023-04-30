@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import Principal from './Components/Principal';
+import Secondary from './Components/Secondary';
+import Navigator from './Components/TagComponents/Navigator';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from "react";
 
 function App() {
+  const [data, setData] = useState("");
+
+  const handleInputChange = (value) => {
+    setData(value);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navigator/>
+        <div>
+          <Routes>
+            <Route path='/Principal' element={<Principal onInputChange={handleInputChange} />} />
+            <Route path='/Secondary' element={<Secondary data={data} />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
